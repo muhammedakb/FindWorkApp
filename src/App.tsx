@@ -1,23 +1,28 @@
 import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import Deneme from "./components/Deneme";
+import styled from "styled-components/native";
+
+const Container = styled.View`
+  flex: 1;
+  background-color: "#fff";
+  align-items: center;
+  justify-content: center;
+`;
+
+const RotatedBox = styled.Text`
+  transform: rotate(45deg);
+  margin-top: 40px;
+  color: #ef5251;
+  /* #ECEEF0 */
+`;
 
 const App: FC = () => {
   return (
-    <View style={styles.container}>
-      <Text style={{ color: "#000" }}>
-        Open up App.tsx to start working on your app!
-      </Text>
+    <Container>
+      <RotatedBox>Open up App.tsx to start working on your app!</RotatedBox>
       <Deneme />
-    </View>
+    </Container>
   );
 };
 export default App;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
