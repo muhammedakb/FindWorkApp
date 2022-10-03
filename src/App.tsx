@@ -1,28 +1,21 @@
-import { FC } from "react";
-import { Text } from "react-native";
-import Deneme from "./components/Deneme";
-import styled from "styled-components/native";
+import "react-native-gesture-handler";
+import React from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import Jobs from "./pages/Jobs";
+import JobDetail from "./pages/JobDetail";
+import { RootDrawerParamList } from "./types/navigateTypes";
 
-const Container = styled.View`
-  flex: 1;
-  background-color: "#fff";
-  align-items: center;
-  justify-content: center;
-`;
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
-const RotatedBox = styled.Text`
-  transform: rotate(45deg);
-  margin-top: 40px;
-  color: #ef5251;
-  /* #ECEEF0 */
-`;
-
-const App: FC = () => {
+const App = () => {
   return (
-    <Container>
-      <RotatedBox>Open up App.tsx to start working on your app!</RotatedBox>
-      <Deneme />
-    </Container>
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Jobs" component={Jobs} />
+        <Drawer.Screen name="JobDetail" component={JobDetail} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };
 export default App;
