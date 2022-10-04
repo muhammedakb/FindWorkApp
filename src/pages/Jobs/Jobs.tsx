@@ -13,6 +13,7 @@ import { JobsScreenProps } from "../../types/navigateTypes";
 //   transform: rotate(45deg);
 //   margin-top: 40px;
 //   color: #ef5251;
+//   color: #40dac6;
 // `;
 
 const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
@@ -21,7 +22,7 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
       <Text>Jobs</Text>
       <Button
         title="Go job detail"
-        onPress={() => navigation.navigate("JobDetail", { id: "12312421" })}
+        onPress={() => navigation.navigate("FavoritedJobs", { id: "12312421" })}
       />
     </View>
   );
