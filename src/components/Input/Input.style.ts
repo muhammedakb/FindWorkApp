@@ -20,5 +20,12 @@ export default StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     margin: 10,
+    fontSize: 15,
+  },
+  validation: {
+    color: "#f46564",
+    fontSize: 12,
+    marginLeft: "4%",
+    marginTop: -7,
   },
 });

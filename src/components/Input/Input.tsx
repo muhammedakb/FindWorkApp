@@ -7,16 +7,26 @@ type Props = TextInputProps & {
   label?: string;
   viewStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  validationMessage?: string | null;
 };
 
-const Input: FC<Props> = ({ label, viewStyle, labelStyle, ...props }) => (
+const Input: FC<Props> = ({
+  label,
+  viewStyle,
+  labelStyle,
+  validationMessage,
+  ...props
+}) => (
   <View style={[styles.container, viewStyle ? viewStyle : null]}>
     {label ? (
       <Text style={[styles.label, labelStyle ? labelStyle : null]}>
         {label}
       </Text>
     ) : null}
-    <TextInput style={styles.input} placeholderTextColor="#000" {...props} />
+    <TextInput style={styles.input} {...props} />
+    {validationMessage ? (
+      <Text style={styles.validation}>{validationMessage}</Text>
+    ) : null}
   </View>
 );
 
