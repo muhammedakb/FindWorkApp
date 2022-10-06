@@ -1,22 +1,11 @@
 import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
+import { logout } from "../../redux/loginSlice";
+import { useAppDispatch } from "../../redux/store";
 import { JobsScreenProps } from "../../types/navigateTypes";
 
-// const Container = styled.View`
-//   flex: 1;
-//   background-color: #eceef0;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
-// const RotatedBox = styled.Text`
-//   transform: rotate(45deg);
-//   margin-top: 40px;
-//   color: #ef5251;
-//   color: #40dac6;
-// `;
-
 const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch();
   return (
     <View>
       <Text>Jobs</Text>
@@ -24,6 +13,7 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
         title="Go job detail"
         onPress={() => navigation.navigate("FavoritedJobs", { id: "12312421" })}
       />
+      <Button title="logout" onPress={() => dispatch(logout())} />
     </View>
   );
 };

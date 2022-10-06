@@ -22,6 +22,11 @@ export default StyleSheet.create({
   form: {
     alignItems: "center",
   },
+  error_message: {
+    color: "#f46564",
+    fontSize: 13,
+    marginTop: 20,
+  },
   button: {
     marginTop: 20,
   },
