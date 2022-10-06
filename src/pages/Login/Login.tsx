@@ -1,15 +1,20 @@
 import React, { FC } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { Formik } from "formik";
+import Lottie from "lottie-react-native";
+import * as Yup from "yup";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { LoginScreenProps } from "../../types/navigateTypes";
-import Lottie from "lottie-react-native";
-import styles from "./Login.style";
 import useKeyboardStatus from "../../hooks/useKeyboardStatus";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { userLogin, UserInput } from "../../redux/loginSlice";
-import { useAppDispatch } from "../../hooks/useStore";
+import {
+  errorSelector,
+  statusSelector,
+  UserInput,
+  userLogin,
+} from "../../redux/loginSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { LoginScreenProps } from "../../types/navigateTypes";
+import styles from "./Login.style";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -24,6 +29,8 @@ const LoginSchema = Yup.object().shape({
 const Login: FC<LoginScreenProps> = () => {
   const { isKeyboardVisible } = useKeyboardStatus();
   const dispatch = useAppDispatch();
+  const status = useAppSelector(statusSelector);
+  const error = useAppSelector(errorSelector);
 
   const handleLogin = (values: UserInput) => {
     dispatch(userLogin(values));
@@ -39,6 +46,11 @@ const Login: FC<LoginScreenProps> = () => {
       <View
         style={[styles.form, isKeyboardVisible ? styles.focused_form : null]}
       >
+        {error ? (
+          <Text style={styles.error_message}>
+            User name or Password is wrong!
+          </Text>
+        ) : null}
         <Formik
           initialValues={{ username: "", password: "" }}
           validationSchema={LoginSchema}
@@ -54,6 +66,7 @@ const Login: FC<LoginScreenProps> = () => {
                 validationMessage={
                   errors.username && touched.username ? errors.username : null
                 }
+                autoCapitalize="none"
               />
               <Input
                 label="password"
@@ -63,13 +76,14 @@ const Login: FC<LoginScreenProps> = () => {
                 validationMessage={
                   errors.password && touched.password ? errors.password : null
                 }
+                autoCapitalize="none"
                 secureTextEntry
               />
-              {/* TODO: Loading animation add in button */}
               <Button
                 text="Login"
                 style={styles.button}
                 onPress={handleSubmit}
+                loading={status === "loading"}
               />
             </>
           )}
