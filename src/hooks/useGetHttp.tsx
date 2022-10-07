@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useGetHttp = (url: string) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | boolean>(null);
 
