@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "./redux/store";
 import { RootDrawerParamList, RootStackParamList } from "./types/navigateTypes";
 import { useWindowDimensions } from "react-native";
 import Button from "./components/Button";
+import FavoriteJobs from "./pages/FavoriteJobs";
 
 type CustomDrawerProps = DrawerContentComponentProps & {
   onPress: () => void;
@@ -44,6 +45,13 @@ const App = () => {
     dispatch(logout());
   };
 
+  const JobStack = () => (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Jobs" component={Jobs} />
+      <Stack.Screen name="JobDetail" component={JobDetail} />
+    </Stack.Navigator>
+  );
+
   return (
     <NavigationContainer>
       {!user ? (
@@ -70,10 +78,14 @@ const App = () => {
             <CustomDrawerContent onPress={handleLogout} {...props} />
           )}
         >
-          <Drawer.Screen name="Jobs" component={Jobs} />
+          <Drawer.Screen
+            name="JobStack"
+            component={JobStack}
+            options={{ title: "Jobs" }}
+          />
           <Drawer.Screen
             name="FavoritedJobs"
-            component={JobDetail}
+            component={FavoriteJobs}
             options={{ title: "Favorited Jobs" }}
           />
         </Drawer.Navigator>
