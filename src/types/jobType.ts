@@ -21,6 +21,8 @@ type Company = {
   name: string;
 };
 
+type Aggregations = {};
+
 export type JobType = {
   contents: string;
   name: string;
@@ -35,4 +37,15 @@ export type JobType = {
   tags: any[];
   refs: Refs;
   company: Company;
+};
+
+export type JobsPage = {
+  page: number;
+  page_count: number;
+  items_per_page: number;
+  took: number;
+  timed_out: boolean;
+  total: number;
+  results: JobType[];
+  aggregations: Aggregations;
 };

@@ -1,5 +1,12 @@
 import { StyleSheet } from "react-native";
 
+const baseStyle = StyleSheet.create({
+  row_style: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
+
 export default StyleSheet.create({
   container: {
     height: 110,
@@ -16,15 +23,11 @@ export default StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
-  footer_container: {
-    flexDirection: "row",
+  header: {
+    ...baseStyle.row_style,
     justifyContent: "space-between",
-    alignItems: "center",
   },
-  footer_left: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
+  footer: baseStyle.row_style,
   location: {
     paddingLeft: 6,
     paddingRight: 6,
