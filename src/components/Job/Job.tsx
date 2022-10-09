@@ -5,7 +5,7 @@ import styles from "./Job.style";
 type Props = {
   category: string;
   companyName: string;
-  publicationDate: Date;
+  publicationDate: string;
   location: string;
   level: string;
 };
@@ -20,16 +20,18 @@ const Job: FC<Props> = ({
   return (
     <TouchableWithoutFeedback onPress={() => Alert.alert("zort")}>
       <View style={styles.container}>
-        <Text style={styles.title}>{category}</Text>
-        <Text>{companyName}</Text>
-        <View style={styles.footer_container}>
-          <View style={styles.footer_left}>
-            <Text>{`${publicationDate}`} • </Text>
-            <View style={styles.location}>
-              <Text style={styles.location_text}>{location}</Text>
-            </View>
-          </View>
+        <View style={styles.header}>
+          <Text style={styles.title}>{category}</Text>
           <Text style={styles.level}>{level}</Text>
+        </View>
+
+        <Text>{companyName}</Text>
+
+        <View style={styles.footer}>
+          <Text>{publicationDate} • </Text>
+          <View style={styles.location}>
+            <Text style={styles.location_text}>{location}</Text>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
