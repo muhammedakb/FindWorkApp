@@ -8,6 +8,7 @@ type Props = {
   publicationDate: string;
   location: string;
   level: string;
+  onPress?: () => void;
 };
 
 const Job: FC<Props> = ({
@@ -16,9 +17,10 @@ const Job: FC<Props> = ({
   publicationDate,
   location,
   level,
+  onPress,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => Alert.alert("zort")}>
+    <TouchableWithoutFeedback onPress={() => onPress?.()}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{category}</Text>

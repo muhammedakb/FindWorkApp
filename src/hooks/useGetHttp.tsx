@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useGetHttp = () => {
+export type FetchTypes<ResponseData> = {
+  data: ResponseData;
+  error: null | boolean;
+  isLoading: boolean;
+};
+
+const useGetHttp = (url: string) => {
   const [data, setData] = useState<any>();
   // const [data, setData] = useState<{ [key: string]: any }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | boolean>(null);
 
-  const fetchData = async (url: string) => {
+  const fetchData = async () => {
     try {
       setIsLoading(true);
       const { data: responseData } = await axios.get(url);
@@ -19,11 +25,11 @@ const useGetHttp = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchData(url);
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  return { data, isLoading, error, setData, fetchData };
+  return { data, isLoading, error };
 };
 
 export default useGetHttp;

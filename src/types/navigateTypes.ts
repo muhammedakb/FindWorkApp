@@ -1,17 +1,30 @@
 import { DrawerScreenProps } from "@react-navigation/drawer";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Login: undefined;
+  Jobs: undefined;
+  JobDetail: { id: number };
 };
 
 export type RootDrawerParamList = {
-  Jobs: undefined;
-  FavoritedJobs: { id: string };
+  JobStack: undefined;
+  FavoritedJobs: undefined;
 };
 
-export type LoginScreenProps = DrawerScreenProps<RootStackParamList, "Login">;
-export type JobsScreenProps = DrawerScreenProps<RootDrawerParamList, "Jobs">;
-export type JobDetailScreenProps = DrawerScreenProps<
+export type LoginScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Login"
+>;
+export type JobsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Jobs"
+>;
+export type JobDetailScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "JobDetail"
+>;
+export type FavoritedJobsProps = DrawerScreenProps<
   RootDrawerParamList,
   "FavoritedJobs"
 >;

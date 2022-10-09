@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { FC } from "react";
+import { FavoritedJobsProps } from "../../types/navigateTypes";
 
-const FavoriteJobs = () => {
+const FavoriteJobs: FC<FavoritedJobsProps> = () => {
   return (
     <View>
       <Text>FavoriteJobs</Text>
