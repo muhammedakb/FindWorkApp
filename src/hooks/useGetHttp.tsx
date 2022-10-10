@@ -9,7 +9,6 @@ export type FetchTypes<ResponseData> = {
 
 const useGetHttp = (url: string) => {
   const [data, setData] = useState<any>();
-  // const [data, setData] = useState<{ [key: string]: any }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | boolean>(null);
 
@@ -27,7 +26,7 @@ const useGetHttp = (url: string) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [url]);
 
   return { data, isLoading, error };
 };

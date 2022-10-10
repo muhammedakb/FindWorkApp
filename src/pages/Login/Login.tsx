@@ -84,6 +84,7 @@ const Login: FC<LoginScreenProps> = () => {
                 style={styles.button}
                 onPress={handleSubmit}
                 loading={status === "loading"}
+                disabled={status === "loading"}
               />
             </>
           )}
