@@ -27,7 +27,10 @@ export default StyleSheet.create({
     ...baseStyle.row_style,
     justifyContent: "space-between",
   },
-  footer: baseStyle.row_style,
+  footer: {
+    ...baseStyle.row_style,
+    overflow: "hidden",
+  },
   location: {
     paddingLeft: 6,
     paddingRight: 6,
