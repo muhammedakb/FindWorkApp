@@ -1,5 +1,5 @@
 import { API_URL_JOBS } from "@env";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { Alert, Linking, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
 import Button from "../../components/Button";
@@ -11,8 +11,19 @@ import { JobDetailScreenProps } from "../../types/navigateTypes";
 import styles from "./JobDetail.style";
 import Feather from "react-native-vector-icons/Feather";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import {
+  addFavoriteJob,
+  favoriteJobsSelector,
+  removeFavoriteJob,
+} from "../../redux/favoriteJobsSlice";
+import { correctDate } from "../../utils/date";
 
 const JobDetail: FC<JobDetailScreenProps> = ({ navigation, route }) => {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(favoriteJobsSelector);
+
   const { data, error, isLoading }: FetchTypes<JobType> = useGetHttp(
     `${API_URL_JOBS}/${route.params.id}`
   );
@@ -28,6 +39,28 @@ const JobDetail: FC<JobDetailScreenProps> = ({ navigation, route }) => {
         onPress: () => Linking.openURL(page),
       },
     ]);
+  };
+
+  const isFavorite = useMemo(
+    () => favorites.some((job) => job.id === data?.id),
+    [favorites, data?.id]
+  );
+
+  const handleFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFavoriteJob(data.id));
+    } else {
+      dispatch(
+        addFavoriteJob({
+          id: data?.id,
+          category: data?.categories?.[0]?.name,
+          companyName: data?.company?.name,
+          level: data?.levels?.[0]?.name,
+          location: data?.locations?.[0]?.name,
+          publicationDate: correctDate(new Date(data?.publication_date)),
+        })
+      );
+    }
   };
 
   if (isLoading) {
@@ -70,11 +103,24 @@ const JobDetail: FC<JobDetailScreenProps> = ({ navigation, route }) => {
           icon={<Feather name="send" size={20} color="#fff" />}
           onPress={() => applyJob(data?.refs?.landing_page)}
         />
-        {/* TODO: add favorite jobs to store */}
         <Button
-          text="Favorite Job"
-          style={styles.footer_buttons}
-          icon={<Fontisto name="favorite" size={20} color="#fff" />}
+          text={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          style={[
+            styles.footer_buttons,
+            isFavorite ? styles.remove_button : null,
+          ]}
+          icon={
+            isFavorite ? (
+              <MaterialCommunityIcons
+                name="bookmark-off"
+                size={20}
+                color="#fff"
+              />
+            ) : (
+              <Fontisto name="favorite" size={20} color="#fff" />
+            )
+          }
+          onPress={handleFavorite}
         />
       </View>
     </View>

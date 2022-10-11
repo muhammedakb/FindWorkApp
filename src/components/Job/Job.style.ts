@@ -9,7 +9,7 @@ const baseStyle = StyleSheet.create({
 
 export default StyleSheet.create({
   container: {
-    height: 110,
+    height: 140,
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#e2e2e2",
@@ -46,5 +46,11 @@ export default StyleSheet.create({
   level: {
     color: "#40dac6",
     fontWeight: "500",
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#d63737",
+    marginTop: 15,
+    height: 35,
   },
 });

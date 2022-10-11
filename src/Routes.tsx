@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
+import { Dimensions, useWindowDimensions } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
@@ -8,16 +9,15 @@ import {
 } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Icon from "react-native-vector-icons/Feather";
+import Button from "./components/Button";
+import FavoriteJobs from "./pages/FavoriteJobs";
 import JobDetail from "./pages/JobDetail";
 import Jobs from "./pages/Jobs";
 import Login from "./pages/Login";
 import { logout, userSelector } from "./redux/loginSlice";
 import { useAppDispatch, useAppSelector } from "./redux/store";
 import { RootDrawerParamList, RootStackParamList } from "./types/navigateTypes";
-import { useWindowDimensions } from "react-native";
-import Button from "./components/Button";
-import FavoriteJobs from "./pages/FavoriteJobs";
-import Icon from "react-native-vector-icons/Feather";
 
 type CustomDrawerProps = DrawerContentComponentProps & {
   onPress: () => void;
@@ -28,7 +28,11 @@ const CustomDrawerContent = (props: CustomDrawerProps) => (
     <DrawerItemList {...props} />
     <Button
       text="Logout"
-      style={{ alignSelf: "center", width: 120, marginVertical: 10 }}
+      style={{
+        alignSelf: "center",
+        width: 120,
+        marginTop: Dimensions.get("window").height - 173,
+      }}
       icon={<Icon name="log-out" size={20} color="#fff" />}
       iconPosition="left"
       onPress={props.onPress}
@@ -74,6 +78,8 @@ const App = () => {
             drawerStyle: {
               backgroundColor: "#fff",
             },
+            drawerActiveBackgroundColor: "#40dac6",
+            drawerActiveTintColor: "#fff",
             drawerType: dimensions.width >= 768 ? "permanent" : "front",
           }}
           useLegacyImplementation

@@ -34,4 +34,8 @@ export default StyleSheet.create({
     width: 170,
     backgroundColor: "#40dac6",
   },
+  remove_button: {
+    width: 200,
+    backgroundColor: "#d63737",
+  },
 });
