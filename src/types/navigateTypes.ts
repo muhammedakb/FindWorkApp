@@ -1,4 +1,5 @@
 import { DrawerScreenProps } from "@react-navigation/drawer";
+import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
@@ -24,7 +25,12 @@ export type JobDetailScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "JobDetail"
 >;
-export type FavoritedJobsProps = DrawerScreenProps<
+export type JobStackProps = NativeStackScreenProps<
   RootDrawerParamList,
-  "FavoritedJobs"
+  "JobStack"
+>;
+
+export type FavoritedJobsProps = CompositeScreenProps<
+  DrawerScreenProps<RootDrawerParamList, "FavoritedJobs">,
+  NativeStackScreenProps<RootStackParamList>
 >;
