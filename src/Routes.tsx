@@ -17,6 +17,7 @@ import { RootDrawerParamList, RootStackParamList } from "./types/navigateTypes";
 import { useWindowDimensions } from "react-native";
 import Button from "./components/Button";
 import FavoriteJobs from "./pages/FavoriteJobs";
+import Icon from "react-native-vector-icons/Feather";
 
 type CustomDrawerProps = DrawerContentComponentProps & {
   onPress: () => void;
@@ -27,7 +28,9 @@ const CustomDrawerContent = (props: CustomDrawerProps) => (
     <DrawerItemList {...props} />
     <Button
       text="Logout"
-      style={{ alignSelf: "center" }}
+      style={{ alignSelf: "center", width: 120, marginVertical: 10 }}
+      icon={<Icon name="log-out" size={20} color="#fff" />}
+      iconPosition="left"
       onPress={props.onPress}
     />
   </DrawerContentScrollView>
