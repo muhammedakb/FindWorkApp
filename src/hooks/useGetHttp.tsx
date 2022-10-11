@@ -5,6 +5,7 @@ export type FetchTypes<ResponseData> = {
   data: ResponseData;
   error: null | boolean;
   isLoading: boolean;
+  fetchData: () => Promise<void>
 };
 
 const useGetHttp = (url: string) => {
@@ -28,7 +29,7 @@ const useGetHttp = (url: string) => {
     fetchData();
   }, [url]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, fetchData };
 };
 
 export default useGetHttp;

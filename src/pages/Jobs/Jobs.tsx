@@ -1,5 +1,11 @@
-import React, { FC, useState } from "react";
-import { FlatList, View } from "react-native";
+import React, { FC, useCallback, useState } from "react";
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  View,
+} from "react-native";
 import { API_URL_JOBS } from "@env";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -15,9 +21,14 @@ import styles from "./Jobs.style";
 
 const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const { data, error, isLoading }: FetchTypes<JobsPage> = useGetHttp(
-    `${API_URL_JOBS}?page=${pageNumber}`
-  );
+  const [refreshing, setRefreshing] = useState<boolean>(false);
+  const { data, error, isLoading, fetchData }: FetchTypes<JobsPage> =
+    useGetHttp(`${API_URL_JOBS}?page=${pageNumber}`);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData().finally(() => setRefreshing(false));
+  }, []);
 
   const renderJobs = ({ item }: { item: JobType }) => (
     <Job
@@ -43,12 +54,29 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
   }
 
   if (error) {
-    return <Error />;
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.container}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Error />
+        </ScrollView>
+      </SafeAreaView>
+    );
   }
 
   return (
     <View style={styles.container}>
-      <FlatList data={data?.results} renderItem={renderJobs} />
+      <FlatList
+        data={data?.results}
+        renderItem={renderJobs}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
       <View style={styles.footer_container}>
         <Button
           text="Prev"
