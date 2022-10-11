@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo, ReactNode, useMemo } from "react";
 import {
   Text,
   TouchableWithoutFeedback,
@@ -19,6 +19,8 @@ type Props = {
   text: string;
   loading?: boolean;
   disabled?: boolean;
+  icon?: ReactNode;
+  iconPosition?: "left" | "right";
 };
 
 const Button: FC<Props> = ({
@@ -29,31 +31,59 @@ const Button: FC<Props> = ({
   text,
   loading = false,
   disabled = false,
-}) =>
-  touchEffect ? (
+  icon,
+  iconPosition = "left",
+}) => {
+  const buttonChildren: ReactNode = useMemo(
+    () =>
+      loading ? (
+        <ActivityIndicator color="#40dac6" />
+      ) : iconPosition === "left" ? (
+        <>
+          {icon}
+          <Text
+            style={[
+              styles.text,
+              styles.left_icon,
+              textStyle ? textStyle : null,
+            ]}
+          >
+            {text}
+          </Text>
+        </>
+      ) : (
+        <>
+          <Text
+            style={[
+              styles.text,
+              styles.right_icon,
+              textStyle ? textStyle : null,
+            ]}
+          >
+            {text}
+          </Text>
+          {icon}
+        </>
+      ),
+    [loading, iconPosition, icon, text, textStyle]
+  );
+
+  return touchEffect ? (
     <TouchableOpacity
-      style={[styles.button, style ? style : null]}
+      style={[disabled ? styles.disabled : styles.button, style ? style : null]}
       onPress={onPress}
       disabled={disabled}
     >
-      {loading ? (
-        <ActivityIndicator color="#40dac6" />
-      ) : (
-        <Text style={[styles.text, textStyle ? textStyle : null]}>{text}</Text>
-      )}
+      {buttonChildren}
     </TouchableOpacity>
   ) : (
     <TouchableWithoutFeedback
-      style={[styles.button, style ? style : null]}
+      style={[disabled ? styles.disabled : styles.button, style ? style : null]}
       onPress={onPress}
       disabled={disabled}
     >
-      {loading ? (
-        <ActivityIndicator color="#40dac6" />
-      ) : (
-        <Text style={[styles.text, textStyle ? textStyle : null]}>{text}</Text>
-      )}
+      {buttonChildren}
     </TouchableWithoutFeedback>
   );
-
-export default Button;
+};
+export default memo(Button);

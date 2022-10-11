@@ -15,24 +15,15 @@ export default StyleSheet.create({
   },
   footer_button: {
     width: 80,
-    height: 30,
+    height: 35,
   },
-  //   footer_text: {
-  //     fontSize: 17,
-  //     color: "#40dac6",
-  //     fontWeight: "bold",
-  //     textDecorationLine: "underline",
-  //     textDecorationStyle: "solid",
-  //   },
-  //   footer_text_disabled: {
-  //     fontSize: 17,
-  //     fontWeight: "bold",
-  //     color: "#ccc",
-  //   },
+  footer_picker: {
+    width: 140,
+    marginHorizontal: 15,
+  },
   footer_page_text: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#000",
     fontWeight: "bold",
-    marginHorizontal: 25,
   },
 });

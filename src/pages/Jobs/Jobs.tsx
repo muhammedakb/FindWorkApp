@@ -1,15 +1,17 @@
 import React, { FC, useState } from "react";
-import { FlatList, View, Text } from "react-native";
-import Job from "../../components/Job";
-import useGetHttp, { FetchTypes } from "../../hooks/useGetHttp";
-import { JobsScreenProps } from "../../types/navigateTypes";
+import { FlatList, View } from "react-native";
 import { API_URL_JOBS } from "@env";
-import Loading from "../../components/Loading";
+import { Picker } from "@react-native-picker/picker";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import Button from "../../components/Button";
 import Error from "../../components/Error";
+import Job from "../../components/Job";
+import Loading from "../../components/Loading";
+import useGetHttp, { FetchTypes } from "../../hooks/useGetHttp";
 import { JobsPage, JobType } from "../../types/jobType";
+import { JobsScreenProps } from "../../types/navigateTypes";
 import { correctDate } from "../../utils/date";
 import styles from "./Jobs.style";
-import Button from "../../components/Button";
 
 const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -49,15 +51,35 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
       <FlatList data={data?.results} renderItem={renderJobs} />
       <View style={styles.footer_container}>
         <Button
-          text="Prev <-"
+          text="Prev"
           style={styles.footer_button}
           disabled={pageNumber === 1}
+          icon={<Icon name="navigate-before" size={20} color="#fff" />}
           onPress={goPrevPage}
         />
-        <Text style={styles.footer_page_text}> {pageNumber} </Text>
+        <Picker
+          selectedValue={pageNumber}
+          onValueChange={(value) => setPageNumber(value)}
+          mode="dropdown"
+          style={styles.footer_picker}
+          dropdownIconColor="#000"
+          dropdownIconRippleColor="#40dac6"
+        >
+          {[...Array(50)].map((_, index) => (
+            <Picker.Item
+              key={index + 1}
+              label={`${index + 1}. page`}
+              value={index + 1}
+              style={styles.footer_page_text}
+            />
+          ))}
+        </Picker>
         <Button
-          text="-> Next"
+          text="Next"
           style={styles.footer_button}
+          disabled={pageNumber === 50}
+          icon={<Icon name="navigate-next" size={20} color="#fff" />}
+          iconPosition="right"
           onPress={goNextPage}
         />
       </View>

@@ -1,26 +1,37 @@
 import { Dimensions, StyleSheet } from "react-native";
 
-export default StyleSheet.create({
+const buttonStyle = StyleSheet.create({
   button: {
     width: 230,
     height: 43,
-    backgroundColor: "#000",
-    // marginLeft: (Dimensions.get("window").width - 230) / 2,
     borderRadius: 8,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+});
+
+export default StyleSheet.create({
+  button: {
+    ...buttonStyle.button,
+    backgroundColor: "#000",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 10,
+    elevation: 5,
+  },
+  disabled: {
+    ...buttonStyle.button,
+    backgroundColor: "#ccc",
   },
   text: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    flexDirection: "column",
+  },
+  left_icon: {
+    paddingLeft: 5,
+  },
+  right_icon: {
+    paddingRight: 5,
   },
 });
