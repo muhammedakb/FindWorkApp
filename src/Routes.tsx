@@ -13,11 +13,20 @@ import Icon from "react-native-vector-icons/Feather";
 import Button from "./components/Button";
 import FavoriteJobs from "./pages/FavoriteJobs";
 import JobDetail from "./pages/JobDetail";
+import Filters from "./pages/Filters";
 import Jobs from "./pages/Jobs";
 import Login from "./pages/Login";
+import Company from "./pages/Company";
+import Category from "./pages/Category";
+import Level from "./pages/Level";
+import Location from "./pages/Location";
 import { logout, userSelector } from "./redux/loginSlice";
 import { useAppDispatch, useAppSelector } from "./redux/store";
-import { RootDrawerParamList, RootStackParamList } from "./types/navigateTypes";
+import {
+  FilterStackParamList,
+  RootDrawerParamList,
+  RootStackParamList,
+} from "./types/navigateTypes";
 
 type CustomDrawerProps = DrawerContentComponentProps & {
   onPress: () => void;
@@ -41,6 +50,7 @@ const CustomDrawerContent = (props: CustomDrawerProps) => (
 );
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const FiltersStack = createNativeStackNavigator<FilterStackParamList>();
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 const App = () => {
@@ -52,9 +62,24 @@ const App = () => {
     dispatch(logout());
   };
 
+  const FilterStack = () => (
+    <FiltersStack.Navigator>
+      <FiltersStack.Screen
+        name="Filters"
+        component={Filters}
+        options={{ headerTitle: "Filter Jobs", headerTitleAlign: "center" }}
+      />
+      <FiltersStack.Screen name="Company" component={Company} />
+      <FiltersStack.Screen name="Category" component={Category} />
+      <FiltersStack.Screen name="Level" component={Level} />
+      <FiltersStack.Screen name="Location" component={Location} />
+    </FiltersStack.Navigator>
+  );
+
   const JobStack = () => (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Jobs" component={Jobs} />
+      <Stack.Screen name="FiltersStack" component={FilterStack} />
       <Stack.Screen name="JobDetail" component={JobDetail} />
     </Stack.Navigator>
   );

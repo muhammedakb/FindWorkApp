@@ -11,6 +11,7 @@ import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Button from "../../components/Button";
 import Error from "../../components/Error";
+import Filter from "../../components/Filter";
 import Job from "../../components/Job";
 import Loading from "../../components/Loading";
 import useGetHttp, { FetchTypes } from "../../hooks/useGetHttp";
@@ -28,7 +29,7 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchData().finally(() => setRefreshing(false));
-  }, []);
+  }, [setRefreshing]);
 
   const renderJobs = ({ item }: { item: JobType }) => (
     <Job
@@ -70,6 +71,7 @@ const Jobs: FC<JobsScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Filter onPress={() => navigation.navigate("FiltersStack")} />
       <FlatList
         data={data?.results}
         renderItem={renderJobs}
