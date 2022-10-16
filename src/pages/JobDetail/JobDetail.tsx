@@ -1,5 +1,5 @@
 import { API_URL_JOBS } from "@env";
-import React, { FC, useMemo } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import { Alert, Linking, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
 import Button from "../../components/Button";
@@ -27,6 +27,13 @@ const JobDetail: FC<JobDetailScreenProps> = ({ navigation, route }) => {
   const { data, error, isLoading }: FetchTypes<JobType> = useGetHttp(
     `${API_URL_JOBS}/${route.params.id}`
   );
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: data?.name,
+    });
+  }, [data?.name]);
 
   const applyJob = (page: string) => {
     Alert.alert("Are you sure?", `You're out of the app.\n\n${page}`, [
