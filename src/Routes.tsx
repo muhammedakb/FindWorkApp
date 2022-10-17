@@ -77,10 +77,20 @@ const App = () => {
   );
 
   const JobStack = () => (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        // statusBarColor: "#40dac6",
+        // navigationBarColor: "#40dac6",
+      }}
+    >
       <Stack.Screen name="Jobs" component={Jobs} />
       <Stack.Screen name="FiltersStack" component={FilterStack} />
-      <Stack.Screen name="JobDetail" component={JobDetail} />
+      <Stack.Screen
+        name="JobDetail"
+        component={JobDetail}
+        // options={{ navigationBarColor: "" }}
+      />
     </Stack.Navigator>
   );
 

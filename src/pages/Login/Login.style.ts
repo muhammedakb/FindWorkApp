@@ -14,11 +14,6 @@ export default StyleSheet.create({
   focused_img: {
     opacity: 0.3,
   },
-  focused_form: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-  },
   form: {
     alignItems: "center",
   },
@@ -31,3 +26,12 @@ export default StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export const focusedStyles = (keyboardHeight: number) =>
+  StyleSheet.create({
+    form: {
+      position: "absolute",
+      top: (Dimensions.get("window").height - (keyboardHeight + 255)) / 2,
+      width: "100%",
+    },
+  });
