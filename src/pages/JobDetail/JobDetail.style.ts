@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+// import ui from "../../utils/ui";
 
 export default StyleSheet.create({
   container: {
@@ -29,6 +30,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,
+    // marginBottom: ui.navigationBarHeight,
   },
   footer_buttons: {
     width: 170,

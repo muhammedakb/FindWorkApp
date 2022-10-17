@@ -14,7 +14,7 @@ import {
 } from "../../redux/loginSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { LoginScreenProps } from "../../types/navigateTypes";
-import styles from "./Login.style";
+import styles, { focusedStyles } from "./Login.style";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
@@ -27,7 +27,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login: FC<LoginScreenProps> = () => {
-  const { isKeyboardVisible } = useKeyboardStatus();
+  const { isKeyboardVisible, keyboardHeight } = useKeyboardStatus();
   const dispatch = useAppDispatch();
   const status = useAppSelector(statusSelector);
   const error = useAppSelector(errorSelector);
@@ -44,7 +44,11 @@ const Login: FC<LoginScreenProps> = () => {
         autoPlay
       />
       <View
-        style={[styles.form, isKeyboardVisible ? styles.focused_form : null]}
+        style={[
+          styles.form,
+          isKeyboardVisible ? focusedStyles(keyboardHeight).form : null,
+        ]}
+        // onLayout={(e) => console.log(e.nativeEvent.layout.height)}
       >
         {error ? (
           <Text style={styles.error_message}>

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+// import ui from "../../utils/ui";
 
 export default StyleSheet.create({
   container: {
@@ -12,6 +13,7 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
+    // marginBottom: ui.navigationBarHeight,
   },
   footer_button: {
     width: 80,

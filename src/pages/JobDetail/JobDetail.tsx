@@ -1,24 +1,24 @@
 import { API_URL_JOBS } from "@env";
 import React, { FC, useEffect, useMemo } from "react";
 import { Alert, Linking, Text, View } from "react-native";
+import Feather from "react-native-vector-icons/Feather";
+import Fontisto from "react-native-vector-icons/Fontisto";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { WebView } from "react-native-webview";
 import Button from "../../components/Button";
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import useGetHttp, { FetchTypes } from "../../hooks/useGetHttp";
-import { JobType } from "../../types/jobType";
-import { JobDetailScreenProps } from "../../types/navigateTypes";
-import styles from "./JobDetail.style";
-import Feather from "react-native-vector-icons/Feather";
-import Fontisto from "react-native-vector-icons/Fontisto";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
 import {
   addFavoriteJob,
   favoriteJobsSelector,
-  removeFavoriteJob,
+  removeFavoriteJob
 } from "../../redux/favoriteJobsSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { JobType } from "../../types/jobType";
+import { JobDetailScreenProps } from "../../types/navigateTypes";
 import { correctDate } from "../../utils/date";
+import styles from "./JobDetail.style";
 
 const JobDetail: FC<JobDetailScreenProps> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
