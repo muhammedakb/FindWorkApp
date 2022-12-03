@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { View } from "react-native";
 import { MultiSelect } from "react-native-element-dropdown";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import styles from "./MultiSelect.style";
 
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
-];
+type Props = {
+  data: any[];
+  selected: never[];
+  setSelected: React.Dispatch<React.SetStateAction<never[]>>;
+};
 
-const MultiSelectComponent = () => {
-  const [selected, setSelected] = useState([]);
+const MultiSelectComponent: FC<Props> = ({ data, selected, setSelected }) => {
   return (
     <View style={styles.container}>
       <MultiSelect

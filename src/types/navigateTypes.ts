@@ -9,12 +9,40 @@ export type RootStackParamList = {
   JobDetail: { id: number };
 };
 
+export type Filters = {
+  company: never[];
+  category: never[];
+  level: never[];
+  location: never[];
+};
+
+type setFilters = React.Dispatch<
+  React.SetStateAction<{
+    company: never[];
+    category: never[];
+    level: never[];
+    location: never[];
+  }>
+>;
+
 export type FilterStackParamList = {
   Filters: undefined;
-  Company: undefined;
-  Category: undefined;
-  Level: undefined;
-  Location: undefined;
+  Company: {
+    filters: Filters;
+    setFilters: setFilters;
+  };
+  Category: {
+    filters: Filters;
+    setFilters: setFilters;
+  };
+  Level: {
+    filters: Filters;
+    setFilters: setFilters;
+  };
+  Location: {
+    filters: Filters;
+    setFilters: setFilters;
+  };
 };
 
 export type RootDrawerParamList = {

@@ -1,24 +1,37 @@
-import { View, Text } from "react-native";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { View } from "react-native";
+import MultiSelect from "../../components/MultiSelect";
+import { CompanyScreenProps, Filters } from "../../types/navigateTypes";
+import { companies } from "./companies.json";
 
-// type Prop = {
-//   id?: number;
-//   name: string;
-//   email: string;
-// };
+const Company: FC<CompanyScreenProps> = ({ route }) => {
+  const { filters, setFilters } = route.params;
+  const [selected, setSelected] = useState([]);
 
-// type Prop = {
-//   id: number;
-//   name: string;
-//   email: string;
-// };
+  const correctedData = companies.map((company) => ({
+    label: company,
+    value: company,
+  }));
 
-// type Props = Omit<Prop, "id">;
+  useEffect(() => {
+    setFilters((filters) => {
+      const updatedFilters: Filters = {
+        category: filters.category,
+        level: filters.level,
+        location: filters.location,
+        company: selected,
+      };
+      return updatedFilters;
+    });
+  }, [selected, setSelected]);
 
-const Company: FC = () => {
   return (
     <View>
-      <Text>Company</Text>
+      <MultiSelect
+        data={correctedData}
+        selected={filters.company.length > 0 ? filters.company : selected}
+        setSelected={setSelected}
+      />
     </View>
   );
 };

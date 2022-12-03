@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useState } from "react";
 import { View, FlatList } from "react-native";
 import { FiltersScreenProps } from "../../types/navigateTypes";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -11,7 +11,7 @@ type FilterItems = {
   navigate: "Company" | "Category" | "Level" | "Location";
 };
 
-const filters: FilterItems[] = [
+const filterList: FilterItems[] = [
   {
     name: "Company",
     icon: <MaterialIcons name="chevron-right" size={30} color="#000" />,
@@ -35,10 +35,17 @@ const filters: FilterItems[] = [
 ];
 
 const Filters: FC<FiltersScreenProps> = ({ navigation, route }) => {
+  const [filters, setFilters] = useState({
+    company: [],
+    category: [],
+    level: [],
+    location: [],
+  });
+  console.log("FILTERS", filters);
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
-        data={filters}
+        data={filterList}
         renderItem={({ item }) => (
           <Button
             text={item.name}
@@ -46,10 +53,17 @@ const Filters: FC<FiltersScreenProps> = ({ navigation, route }) => {
             iconPosition="right"
             style={styles.button}
             textStyle={styles.text}
-            onPress={() => navigation.navigate(item.navigate)}
+            onPress={() =>
+              navigation.navigate(item.navigate, { filters, setFilters })
+            }
           />
         )}
         keyExtractor={(item) => item.name}
+      />
+      <Button
+        text="Apply"
+        style={styles.footer_button}
+        onPress={() => navigation.goBack()}
       />
     </View>
   );
